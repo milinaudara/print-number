@@ -1,31 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 
 namespace Print_Number
 {
+  
     class PrintNumberTest
     {
+        private readonly PrintNumber _printNumber;
+        public PrintNumberTest()
+        {
+            _printNumber=new PrintNumber();
+        }
+
         [TestCase(1, "one")]
         [TestCase(2, "two")]
         [TestCase(3, "three")]
+        [TestCase(20, "twenty")]
+        [TestCase(21, "twenty-one")]
+        [TestCase(24, "twenty-four")]
+        [TestCase(30, "thirty")]
+        [TestCase(35, "thirty-five")]
+        [TestCase(40, "forty")]
+        [TestCase(72, "seventy-two")]
         public void ToEnglishTest(int number, string expected)
         {
-            ToEnglish(number).Should().Be(expected);
-        }
-
-        public static string ToEnglish(int i)
-        {
-            Dictionary<int,string> numberMapping=new Dictionary<int, string>();
-            numberMapping.Add(1,"one");
-            numberMapping.Add(2,"two");
-            numberMapping.Add(3,"three");
-            return numberMapping[i];
+            _printNumber.ToEnglish(number).Should().Be(expected);
         }
     }
 }
