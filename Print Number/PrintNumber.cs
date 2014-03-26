@@ -36,17 +36,32 @@ namespace Print_Number
                 {70,"seventy"},
                 {80,"eighty"},
                 {90,"ninety"},
+                
+               
+
             };
         }
 
-        public  string ToEnglish(int number){
-           
+        public  string ToEnglish(int number)
+        {
+            if(number<100) return NumberLessThan100(number);
+            var thirdNumber =number/100;
+            var rest = number%100;
+            return rest == 00
+                ? _numberMapping[thirdNumber] + " hundred"
+                : _numberMapping[thirdNumber] + " hundred and " + NumberLessThan100(rest);
+        }
+
+        private string NumberLessThan100(int number)
+        {
             if (number <= 20) return _numberMapping[number];
-            var firstNumber = number/10;
+            var lastNumber = number/10;
             var seocndnumber = number % 10;
             return seocndnumber == 0
                 ? _numberMapping[number]
-                : _numberMapping[firstNumber*10] + "-" + _numberMapping[seocndnumber];
+                : _numberMapping[lastNumber * 10] + "-" + _numberMapping[seocndnumber];
         }
+
+       
     }
 }
