@@ -39,6 +39,8 @@ namespace Print_Number
         public static string ToEnglish(this int number)
         {
             if (number < 1000) return NumbersLessThan1000(number);
+            if (number / 1000 > 20 && number % 1000 != 000)
+                return NumbersLessThan100(number / 1000) + " thousand " + AndCheckForThousends(number % 1000) + NumbersLessThan1000(number % 1000); ;
             return number % 1000 == 000
                 ? NumberMapping[number / 1000] + " thousand"
                 : NumberMapping[number / 1000] + " thousand " + AndCheckForThousends(number % 1000) + NumbersLessThan1000(number % 1000);
@@ -65,7 +67,7 @@ namespace Print_Number
                 : NumberMapping[number / 10 * 10] + "-" + NumberMapping[number % 10];
         }
 
-       
+
 
     }
 }

@@ -23,9 +23,11 @@ namespace Print_Number
         [TestCase(11812, "eleven thousand eight hundred and twelve")]
         [TestCase(13014, "thirteen thousand and fourteen")]
         [TestCase(14700, "fourteen thousand and seven hundred")]
+        [TestCase(34700, "thirty-four thousand and seven hundred")]
+        [TestCase(99999, "thirty-four thousand and seven hundred")]
         public void ShouldPrintNumberInEnglish(int number, string expected)
         {
-            number.ToEnglish().Should().Be(expected);
+            number.ToEnglish().Should().Be(expected);            
         }
     }
 }
