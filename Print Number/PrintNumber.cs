@@ -2,12 +2,9 @@
 
 namespace Print_Number
 {
-    class PrintNumber
+    static class PrintNumber
     {
-        readonly Dictionary<int, string> _numberMapping;
-        public PrintNumber()
-        {
-            _numberMapping = new Dictionary<int, string>
+        static readonly Dictionary<int, string> NumberMapping = new Dictionary<int, string>
             {
                 {1, "one"},
                 {2, "two"},
@@ -37,37 +34,38 @@ namespace Print_Number
                 {80,"eighty"},
                 {90,"ninety"}
             };
-        }
 
-        public string ToEnglish(int number)
+
+        public static string ToEnglish(this int number)
         {
             if (number < 1000) return NumbersLessThan1000(number);
             return number % 1000 == 000
-                ? _numberMapping[number / 1000] + " thousand"
-                : _numberMapping[number / 1000] + " thousand " + AndCheckForThousends(number % 1000) + NumbersLessThan1000(number % 1000);
+                ? NumberMapping[number / 1000] + " thousand"
+                : NumberMapping[number / 1000] + " thousand " + AndCheckForThousends(number % 1000) + NumbersLessThan1000(number % 1000);
         }
 
-        private string AndCheckForThousends(int number)
+        private static string AndCheckForThousends(this int number)
         {
             return number < 100 || number % 100 == 00 ? "and " : "";
         }
 
-        private string NumbersLessThan1000(int number)
+        private static string NumbersLessThan1000(int number)
         {
             if (number < 100) return NumbersLessThan100(number);
             return number % 100 == 00
-                ? _numberMapping[number / 100] + " hundred"
-                : _numberMapping[number / 100] + " hundred and " + NumbersLessThan100(number % 100);
+                ? NumberMapping[number / 100] + " hundred"
+                : NumberMapping[number / 100] + " hundred and " + NumbersLessThan100(number % 100);
         }
 
-        private string NumbersLessThan100(int number)
+        private static string NumbersLessThan100(int number)
         {
-            if (number <= 20) return _numberMapping[number];
+            if (number <= 20) return NumberMapping[number];
             return number % 10 == 0
-                ? _numberMapping[number]
-                : _numberMapping[number / 10 * 10] + "-" + _numberMapping[number % 10];
+                ? NumberMapping[number]
+                : NumberMapping[number / 10 * 10] + "-" + NumberMapping[number % 10];
         }
 
+       
 
     }
 }

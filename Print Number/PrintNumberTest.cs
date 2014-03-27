@@ -14,20 +14,18 @@ namespace Print_Number
         [TestCase(30, "thirty")]
         [TestCase(35, "thirty-five")]
         [TestCase(40, "forty")]
-        [TestCase(72, "seventy-two")]
         [TestCase(100, "one hundred")]
         [TestCase(110, "one hundred and ten")]
         [TestCase(556, "five hundred and fifty-six")]
         [TestCase(405, "four hundred and five")]
-        [TestCase(999, "nine hundred and ninety-nikne")]
+        [TestCase(999, "nine hundred and ninety-nine")]
         [TestCase(7000, "seven thousand")]
         [TestCase(11812, "eleven thousand eight hundred and twelve")]
         [TestCase(13014, "thirteen thousand and fourteen")]
         [TestCase(14700, "fourteen thousand and seven hundred")]
         public void ShouldPrintNumberInEnglish(int number, string expected)
         {
-            var printNumber = new PrintNumber(); ;
-            printNumber.ToEnglish(number).Should().Be(expected);
+            number.ToEnglish().Should().Be(expected);
         }
     }
 }
