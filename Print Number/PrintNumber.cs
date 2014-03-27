@@ -35,33 +35,39 @@ namespace Print_Number
                 {60,"sisty"},
                 {70,"seventy"},
                 {80,"eighty"},
-                {90,"ninety"},
-                
-               
-
+                {90,"ninety"}
             };
         }
 
-        public  string ToEnglish(int number)
+        public string ToEnglish(int number)
         {
-            if(number<100) return NumberLessThan100(number);
-            var thirdNumber =number/100;
-            var rest = number%100;
-            return rest == 00
-                ? _numberMapping[thirdNumber] + " hundred"
-                : _numberMapping[thirdNumber] + " hundred and " + NumberLessThan100(rest);
+            if (number < 1000) return NumbersLessThan1000(number);
+            return number % 1000 == 000
+                ? _numberMapping[number / 1000] + " thousand"
+                : _numberMapping[number / 1000] + " thousand " + AndCheckForThousends(number % 1000) + NumbersLessThan1000(number % 1000);
         }
 
-        private string NumberLessThan100(int number)
+        private string AndCheckForThousends(int number)
+        {
+            return number < 100 || number % 100 == 00 ? "and " : "";
+        }
+
+        private string NumbersLessThan1000(int number)
+        {
+            if (number < 100) return NumbersLessThan100(number);
+            return number % 100 == 00
+                ? _numberMapping[number / 100] + " hundred"
+                : _numberMapping[number / 100] + " hundred and " + NumbersLessThan100(number % 100);
+        }
+
+        private string NumbersLessThan100(int number)
         {
             if (number <= 20) return _numberMapping[number];
-            var lastNumber = number/10;
-            var seocndnumber = number % 10;
-            return seocndnumber == 0
+            return number % 10 == 0
                 ? _numberMapping[number]
-                : _numberMapping[lastNumber * 10] + "-" + _numberMapping[seocndnumber];
+                : _numberMapping[number / 10 * 10] + "-" + _numberMapping[number % 10];
         }
 
-       
+
     }
 }
